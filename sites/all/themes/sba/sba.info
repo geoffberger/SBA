@@ -1,0 +1,29 @@
+; $Id: sba.info,v 1.5 2007/07/01 23:27:32 goba Exp $
+name = Sponsored By Anything
+description = Theme used for the ecommerce company Sponsored By Anything
+version = VERSION
+core = 6.x
+engine = phptemplate
+
+; CSS Files
+stylesheets[all][] = css/sba.css
+
+; JavaScript Files
+scripts[] = js/sba.js
+scripts[] = js/easySlider.packed.js
+
+; Specified block regions
+regions[utility_nav]    = Utility Nav
+regions[main_nav]       = Main Navigation
+regions[content]        = Content
+regions[banners]        = Banners
+regions[content_blocks] = Content Blocks
+regions[aside]          = Aside
+regions[footer]         = Footer
+regions[closure_region] = Closure
+
+; Information added by drupal.org packaging script on 2009-02-25
+version = "6.10"
+project = "sponsored-by-anything"
+datestamp = "1235596218"
+
