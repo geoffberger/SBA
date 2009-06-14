@@ -1,0 +1,166 @@
+This module has been written to provide a simple way of linking Moxiecode's TinyMCE rich text editor into Drupal 6
+
+RATIONALE
+=========
+This module was written because the Drupal's tinymce module seems to be quite difficult to configure and many people seem to be having problems with it under Drupal 6.  It is intended to be simple to set up.
+
+It offers two modes, simple and advanced.  You control which users get which mode in Drupal's user permissions screen.
+   - simple mode offers a very limited set of controls (bold, italic, underline, stikeout, undo, redo, unordered/ordered list
+   - advanced mode offers most of TinyMCE's features. A few features, such as layers, have been removed but you can alter the configuration, if you wish.
+
+By default, all textareas will have a toggle for turning the rich text editor on or off.  Some textareas are excluded from this (and you can configure which ones).
+
+INSTALLATION
+============
+1) Install all the files into the following directory
+   {basepath}/sites/all/modules/tinytinymce
+   
+   Note that installing with the core modules, ie {basepath}/modules/ is not recommended. Installing in {basepath}/sites/all/modules/... ensures that the core modules load before any user-defined modules which might depend on them.
+   
+2) Download the latest version of TinyMCE from Moxiecode (http://tinymce.moxiecode.com).  Install it in a subfolder called {basepath}/sites/all/modules/tinytinymce/tinymce
+   If you have done this correctly, the file tiny_mce.js should be located at:
+   {basepath}/sites/all/modules/tinytinymce/tinymce/jscripts/tiny_mce/tiny_mce.js
+   IMPORTANT - make sure that your FTP client software is using binary mode (not ASCII) - If you download in ASCII mode you will get a problem with the TINYMCE icons not showing up properly.
+   
+3) Copy or move the contents of the folder tinymce-jscripts-tiny_mce-plugins-pagebreak into tinymce/jscripts/tiny_mce/plugins/pagebreak.  
+   This will overwrite part of TinyMCE's code. TinyMCE's pagebreak plugin has been modified to insert a Drupal Teaser break <--break-->.  
+   (You could regard this step as optional, if you don't want this functionality.)
+   
+4) Enable the tinytinymce module using admin/build/modules.
+
+5) Set up user permissions using admin/user/permissions.  To see the rich text editor, users will need one of these two permissions:
+
+   use tinytinymce simple
+   use tinytinymce advanced
+   
+NOTE: If you are upgrading from a previous version it is possible that some of the default settings will have changed.  It is advised to reset to the new default parameters, particularly if you are encountering any problems: 
+- go to admin/settings/tinytinymce
+- click reset to defaults
+   
+CONFIGURATION
+=============
+You can customise the installation at admin/settings/tinytinymce.  The interface is quite "raw" in that you are directly editing the initialisation parameters - but also very flexible.  There are some examples in the help text and loads more at http://wiki.moxiecode.com/examples/tinymce/installation_example_00.php.
+
+You can configure the parameters for both the simple and advanced modes.  This lets you add or remove any of the features of TinyMCE
+
+You can also specify:
+ - Textareas where the rich text editor should NOT appear.  By default it appears on all textareas which are not excluded.
+ - Textareas where the rich text editor is initially switched off, but can be enabled by the user.
+
+Note: text areas in admin screens are automatically turned off.  This is to prevent tinymce corrupting setup information.  Where enabled, the toggle will be present so you can turn rich text editing on.
+
+There is also a feature you can turn on which will display the IDs of all the textareas.  This is to help you identify which IDs should be put in the Exclusion and Switch Off fields.
+
+Read the sections below for some "how to's".
+
+IMPORTANT: The module is incompatible with aggressive caching. Normal caching should be OK provided you don't grant access to the module to anonymous users. If you grant anonymous users with access to the module you need to fully disable caching.
+
+CONTROLLING WHICH TEXTAREAS ARE ENABLED/ACTIVE
+==============================================
+You can use the "Exclude these text areas:" field to specify which text areas have the TinyMCE editor enabled.  By default all textareas except those listed will be enabled.  You can reverse this by checking the "Reverse the above" box - in which all textareas are disabled unless listed.
+
+For textareas where TinyMCE is enabled you can also control whether it is switched on when the page loads.  This can have adverse effects in some cases as TinyMCE will automatically wrap any text (even a blank field) in some HTML.  For this reason, TinyMCE is always switched off in admin screens or for any of the textarea IDs specified in the "Switch off these text areas:" field. You can also reverse the effect of this field by checking its "Reverse the above" box in which case TinyMCE is always switched off when the page loads unless the textarea ID is specified (admin screen will always have TinyMCE switched off).
+
+USING WILDCARDS
+===============
+The "Exclude these text areas:" and "Switch off these text areas:" fields use a comma-separated list of textarea IDs.  If you want to use wildcard matching you can convert these lists to regular expressions.  To do this, the field must begin with the /character and must be a valid PHP regular expression.  For instance the default value of the "Exclude these text areas:" field as a regular expression would be:
+
+/^edit-teaser-js$|^edit-code$|^edit-log$|^edit-img_assist_pages$|^edit-caption$|^edit-pages$|^edit-access_pages$|^edit-user_mail_welcome_body$|^edit-user_mail_approval_body$|^edit-user_mail_pass_body$|^edit-synonyms$|^edit-description$/
+
+To add a wildcard match onto the end of this, it might look like this:
+
+/^edit-teaser-js$|^edit-code$|^edit-log$|^edit-img_assist_pages$|^edit-caption$|^edit-pages$|^edit-access_pages$|^edit-user_mail_welcome_body$|^edit-user_mail_approval_body$|^edit-user_mail_pass_body$|^edit-synonyms$|^edit-description$|^edit-photos-.*-des$/
+
+The last bit "^edit-photos-.*-des$", can be interpreted like this:
+   ^edit-photos-        (must begin with "edit-photos-")
+   .*                   (can have anything in the middle)
+   -des$                (must end with "-des")
+
+EXTENDING THE SIMPLE MODE SETTINGS
+==================================
+The simple mode invokes the TinyMCE simple theme, which does not have many configuration options.  If you want to to do more with the simple mode, you can turn it into a cut down version of the advanced mode.  To do this:
+ - In admin/settings/tinytinymce you will see the init script for advanced mode.
+ - Copy this script and paste it over the init script for simple mode.
+ - You can then modify the simple mode, perhaps by removing the plugins and buttons to suit your needs.
+
+POPULATING THE STYLE DROPDOWN LIST
+==================================
+In admin/settings/tinytinymce you will see the init script for advanced mode.  Add a line similar to this:
+      content_css: "/path/to/your/sites/stylesheet.css"
+
+Change the path to reference your site's stylesheet (this needs be to a stylesheet linked to an existing theme or module or Drupal will not load it).
+
+Any classes in the stylesheet which are associated with divs - eg div.mystyle {....} - will appear in the editor dropdown menu.
+
+Alternatively, add the following line (suitably adapted):
+   theme_advanced_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
+
+INTEGRATION WITH IMCE
+=====================
+If you have the IMCE module installed, this module will detect it and add the necessary scripts.  Once you have done this, the image popup will have a Browse button in addition to the URL field.  The Browse button will invoke the IMCE popup.
+
+(If, instead of IMCE, you wish to use Moxiecode's MCImageManager, see the patch documented below.)
+
+LANGUAGES AND THEMES
+====================
+Here are some instructions, kindly supplied by Fleetcommand:
+
+First you will need a language pack for TinyMCE. Download it from http://services.moxiecode.com/i18n/ then extract it into your TinyMCE tree to the appropriate place.
+
+Then you need to edit the TinyMCE init script at /admin/settings/tinytinymce .. Add the language to it like this:
+   language : "hu",
+where put the language code instead of "hu"
+
+The default TinyMCE installation includes two themes.. The simple and advanced. If you use advanced theme, you will have two skins. the "default" and "o2k7". This also should be specified through the init script:
+   skin : "o2k7",
+
+PHP SPELLCHECKER AND GOOGLESPELL
+================================
+To integrate the PHP spellchecker or GoogleSpell:
+
+Download tinymce_spellchecker_php_2_0_2.zip (or later version from http://tinymce.moxiecode.com/download.php) and install it in /sites/all/modules/tinytinymce/tinymce/jscripts/tiny_mce/plugins/spellchecker
+
+In admin/settings/tinytinymce edit the TinyMCE init script for advanced mode:
+   ...
+   plugins : "...,spellchecker,...",
+   ...
+   theme_advanced_buttons4 : "...,spellchecker,...",
+   ...
+   spellchecker_rpc_url: "/sites/all/modules/tinytinymce/tinymce/jscripts/tiny_mce/plugins/spellchecker/rpc.php",
+   ...
+
+The zip file contains a config.php, which presumably you could reconfigure to other spellcheckers. Out of the box, it seems to be configured for GoogleSpell.
+
+INTEGRATION WITH MCImageManager
+===============================
+(Support for the Drupal IMCE module is built in.  Alternatively, if you wish to use Moxiecode's MCImageManager, you will need to apply the following patch - thanks to chris.cohen.)
+
+Modify tinytinymce.module as follows:
+   /**
+   * Implementation of hook_perm
+   */
+   function tinytinymce_perm () {
+       return array(
+           'administer tinytinymce',
+           'use tinytinymce advanced',
+           'use tinytinymce simple',
+           'access tinymce imagemanager'    // new line
+       );
+   }
+
+EDITING IN PHP MODE
+===================
+To enter PHP code:
+-  Use the "rich text editor" toggle to turn TinyMCE off
+-  Enter your PHP code - the PHP declaration (<?php) must be the very first thing in the text area
+-  Save your node
+
+The next time you edit the node, TinyMCE will be turned off.  To turn it back on, delete the php declaration and save the node.
+
+USING NON-LATIN CHARACTERS
+==========================
+To use TinyMCE for non-latin characters, eg Greek, you can edit the init script (in admin/settings/tinytinymce), adding the following line:
+   ...
+   entity_encoding : "raw",
+   ...
+Thanks to GiorgosK, see http://drupal.org/node/335333

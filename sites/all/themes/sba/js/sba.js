@@ -3,6 +3,22 @@ $(document).ready(function(){
 
   $('.main-nav li a').TitleToolTip();
 
+  $('#cart-form-buttons #edit-checkout').Buttonizer({attributes:{'class':'sup-alt'}});
+  $('#cart-form-buttons #edit-update').Buttonizer();
+
+  $('#checkout-form-bottom #edit-cancel').Buttonizer();
+  $('#checkout-form-bottom #edit-continue').Buttonizer({attributes:{'class':'sup-alt'}});
+
+  $('#uc-cart-checkout-review-form #edit-back').Buttonizer();
+  $('#uc-cart-checkout-review-form #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
+
+  $('#comments #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
+  $('#comments #edit-preview').Buttonizer();
+
+  $('#user-pass #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
+  $('#user-login #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
+  $('#user-register #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
+
   if($('.slider').length > 0) {
     $('.slider').wrap('<div class="slider-wrap"></div>');
     $('.slider-wrap').easySlider();
@@ -34,6 +50,28 @@ $(document).ready(function(){
   }
 
 });
+
+(function($) {
+  $.fn.Buttonizer = function(options) {
+    var defaults = {
+      attributes:{},
+    };
+
+    var options = $.extend(defaults, options);
+
+    return this.each(function() {
+      var attrs = '';
+
+      $.each(options.attributes, function(key, value) {
+        attrs += key + '="' + value + '" ';
+      });
+
+      $(this).hide();
+      $(this).after('<button id="' + $(this).attr('id') + '" value="' + $(this).attr('value') + '" type="submit" name="op" ' + attrs + '>' + $(this).attr('value') + '</button>');
+      $('button[value="' + $(this).attr('value') + '"]').addClass('supporting');
+    });
+  };
+})(jQuery);
 
 (function($) {
   $.fn.AutoPopulateInput = function(options) {

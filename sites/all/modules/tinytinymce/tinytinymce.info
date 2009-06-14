@@ -1,0 +1,12 @@
+; $Id$
+name = Tiny Tiny MCE
+description = Simple implementation of TinyMCE Rich Text Editor
+core = 6.x
+
+
+; Information added by drupal.org packaging script on 2009-01-10
+version = "6.x-1.12"
+core = "6.x"
+project = "tinytinymce"
+datestamp = "1231624852"
+

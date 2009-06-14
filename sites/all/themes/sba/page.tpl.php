@@ -63,16 +63,20 @@
       <div class="content standard-container clear<?php print special_class($node);?>">
         <?php print $breadcrumb; ?>
         <?php if ($mission): print '<div id="mission">'. $mission .'</div>'; endif; ?>
-        <?php if ($tabs): print '<div id="tabs-wrapper" class="clear-block">'; endif; ?>
         <?php if (sba_title($title, $node)): print '<h2>'. sba_title($title, $node) .'</h2>'; endif; ?>
-        <?php if ($tabs): print '<ul class="tabs primary">'. $tabs .'</ul></div>'; endif; ?>
-        <?php if ($tabs2): print '<ul class="tabs secondary">'. $tabs2 .'</ul>'; endif; ?>
 
         <?php if ($show_messages && $messages): print $messages; endif; ?>
         <?php print $help; ?>
         
         <div class="main-content">
-          <?php print $content ?>
+
+        <?php if ($tabs): print '<div id="tabs-wrapper" class="clear-block">'; endif; ?>
+          <?php if ($tabs): print '<ul class="tabs primary">'. $tabs .'</ul></div>'; endif; ?>
+          <?php if ($tabs2): print '<ul class="tabs secondary">'. $tabs2 .'</ul>'; endif; ?>
+        
+          <div class="page-content">
+            <?php print $content ?>
+          </div>
 
           <?php print $feed_icons ?>
 

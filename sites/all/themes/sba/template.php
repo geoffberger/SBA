@@ -186,7 +186,20 @@ function get_filepath($fid) {
 function body_class(&$node) {
   if(!$node) {
     $page_title = $_GET['q'];
-    return $page_title;
+    if(preg_match("/\//", $page_title)) {
+
+      $classes = '';
+      $suggestions = explode('/', $page_title);
+      foreach($suggestions as $suggest) {
+        if(!is_numeric($suggest)) {
+          $classes .= $suggest . ' ';
+        }
+      }
+      return $classes;
+
+    } else {
+      return $page_title;
+    }
   } else if($node->type) {
     return $node->type;
   }
@@ -231,5 +244,12 @@ function purifier($name) {
   $name = preg_replace('[ ]', '-', $name);
   $name = preg_replace('[\.|\'|\"|\:|\;|\&reg;|-&amp|\(|\)|\[|\]]', '', $name);
   return $name;
+}
+
+function comment_count($count) {
+  if($count!=1) 
+    $append = 's';
+
+  return $count . ' Comment' . $append;
 }
 

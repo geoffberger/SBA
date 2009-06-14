@@ -37,6 +37,7 @@ $image_path = '/' . file_directory_path() . '/imagecache/product/' . $node->fiel
     <li><a href="#toggle-2">Customer Reviews:</a></li>
   </ul>
   <div class="toggle-content" id="toggle-1">
+    <?php print $node->content['fivestar_widget']['#value']; ?>
     <?php print $node->content['body']['#value']; ?>
   </div>
   <div class="toggle-content" id="toggle-2">

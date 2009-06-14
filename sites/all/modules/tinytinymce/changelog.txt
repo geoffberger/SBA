@@ -1,0 +1,11 @@
+
+The exluded textareas can now be specified by regular expression or, as before, by comma separated list
+The excluded textarea list can be negated - is specify only the textareas to enable
+The switched off textareas can now be specified by regular expression or, as before, by comma separated list
+The switched off textarea list can be negated - is specify only the textareas to be switched on
+
+VERSION DRUPAL-6--1-10
+======================
+Can now specify the width of the edit box in advanced mode.  Will default to 100%, which  automatically resizes to fit the area.
+Bug fix: undefined $pbrk
+Bug fix: Javascript errors, which may have affected IE browsers in particular
