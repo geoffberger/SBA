@@ -64,7 +64,6 @@ function sba_preprocess_page(&$vars) {
 
     $vars['template_files'] = $suggestions;
   }
-
 }
 
 /**
@@ -235,7 +234,7 @@ function sba_cart_status() {
   } else {
     return l('<span class="empty">Cart (' . $num_items . ')</span>', 'cart', array(
           'html' => true, 
-          'attributes' => array('title', 'There are no items in your cart')));
+          'attributes' => array('title' => 'There are no items in your cart')));
   }
 }
 

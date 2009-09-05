@@ -3,21 +3,21 @@ $(document).ready(function(){
 
   $('.main-nav li a').TitleToolTip();
 
-  $('#cart-form-buttons #edit-checkout').Buttonizer({attributes:{'class':'sup-alt'}});
+  $('#cart-form-buttons #edit-checkout').Buttonizer();
   $('#cart-form-buttons #edit-update').Buttonizer();
 
   $('#checkout-form-bottom #edit-cancel').Buttonizer();
-  $('#checkout-form-bottom #edit-continue').Buttonizer({attributes:{'class':'sup-alt'}});
+  $('#checkout-form-bottom #edit-continue').Buttonizer();
 
   $('#uc-cart-checkout-review-form #edit-back').Buttonizer();
-  $('#uc-cart-checkout-review-form #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
+  $('#uc-cart-checkout-review-form #edit-submit').Buttonizer();
 
-  $('#comments #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
+  $('#comments #edit-submit').Buttonizer();
   $('#comments #edit-preview').Buttonizer();
 
-  $('#user-pass #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
-  $('#user-login #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
-  $('#user-register #edit-submit').Buttonizer({attributes:{'class':'sup-alt'}});
+  $('#user-pass #edit-submit').Buttonizer();
+  $('#user-login #edit-submit').Buttonizer();
+  $('#user-register #edit-submit').Buttonizer();
 
   if($('.slider').length > 0) {
     $('.slider').wrap('<div class="slider-wrap"></div>');
@@ -27,6 +27,13 @@ $(document).ready(function(){
   if($('.node-add-to-cart').length > 0) {
     $('.node-add-to-cart').hide();
     $('.node-add-to-cart').after('<button class="explicit" type="submit" name="op">' + $('.node-add-to-cart').attr('value') + '</button>');
+
+    $('button.explicit').hover(function() {
+      $(this).addClass('explicit-hover');
+    }, function() {
+      $(this).removeClass('explicit-hover');
+    });
+    
   }
 
   if($('.product-info').length > 0) {
@@ -68,7 +75,14 @@ $(document).ready(function(){
 
       $(this).hide();
       $(this).after('<button id="' + $(this).attr('id') + '" value="' + $(this).attr('value') + '" type="submit" name="op" ' + attrs + '>' + $(this).attr('value') + '</button>');
-      $('button[value="' + $(this).attr('value') + '"]').addClass('supporting');
+      var button = $('button[value="' + $(this).attr('value') + '"]');
+      button.addClass('supporting');
+
+      button.hover(function() {
+        $(this).addClass('supporting-hover');
+      }, function() {
+        $(this).removeClass('supporting-hover');
+      });
     });
   };
 })(jQuery);
@@ -114,17 +128,17 @@ $(document).ready(function(){
 
       //Set title attribute outside the intended scope
       var title_attr = $(this).attr('title');
-      $(this).mouseover(function() {
+      $(this).hover(function() {
         //Set the measurements of the Tool Tip
         var offset = $(this).offset();
         var offset_top = offset.top + $(this).height() + 15;
         var offset_left = offset.left + ($(this).width() / 2);
 
         $(this).attr('title', '').parent().addClass('title-hover');
-        $('.tooltip-hover').fadeIn('def').text(title_attr).css({'top': + offset_top + 'px', 'left': + offset_left + 'px'}).addClass('enable').removeClass('disable');
-      }).mouseout(function() {
+        $('.tooltip-hover').css({'opacity':0}).stop().fadeTo('def', 0.8).text(title_attr).css({'top': + offset_top + 'px', 'left': + offset_left + 'px'}).addClass('enable').removeClass('disable');
+      }, function() {
         $(this).attr('title', '').parent().removeClass('title-hover');
-        $('.tooltip-hover').fadeOut('fast').text('').addClass('disable').removeClass('enable');
+        $('.tooltip-hover').stop().fadeTo('fast', 0).text('').addClass('disable').removeClass('enable');
       });
 
     });

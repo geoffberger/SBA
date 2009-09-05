@@ -37,7 +37,11 @@
 
         <h1><a title="<?php print $site_title; ?>" href="<?php print check_url($front_page); ?>"><?php print $site_title; ?></a></h1>
 
-        <?php print theme('links', menu_navigation_links('menu-utility-links', 0), array('class' => 'global-nav')) ?>
+        <?php if($user->uid): ?>
+          <?php print theme('links', menu_navigation_links('menu-auth-utility-links', 0), array('class' => 'global-nav')) ?>
+        <?php else: ?>
+          <?php print theme('links', menu_navigation_links('menu-utility-links', 0), array('class' => 'global-nav')) ?>
+        <?php endif; ?>
 
         <div class="cart-wrap">
           <?php print sba_cart_status(); ?>
@@ -48,11 +52,14 @@
           <?php print theme('links', $primary_links, array('class' => 'main-nav')) ?>
         <?php endif; ?>
 
-        <form action="/" method="post" class="standard-search">
+        <form action="/search/node" method="post" class="standard-search">
           <fieldset>
             <label for="search">Search</label>
-            <input id="search" name="search" value="" title="type your search word in here"/>
-            <button name="go" value="Go">Go</button>
+            <input id="search" name="keys" value="" title="type your search word in here"/>
+            <button type="submit" name="op" value="Go">Go</button>
+            <input type="hidden" value="<?php print drupal_get_token('search_form'); ?>" name="form_token" />
+            <input type="hidden" value="search_form" id="edit-search-form" name="form_id" /> 
+            <input type="hidden" name="type[product]" id="edit-type-product" value="product" />
           </fieldset>
         </form>
         
@@ -80,20 +87,22 @@
 
           <?php print $feed_icons ?>
 
-          <?php if($banners): ?>
-            <ul class="banners clear">
-              <?php print $banners; ?>
-            </ul>
-          <?php endif; ?>
-
           <?php if($content_blocks): ?>
             <?php print $content_blocks; ?>
           <?php endif; ?>
         </div>
 
-        <?php if($aside): ?>
+        <?php if($aside || $promos): ?>
           <div class="aside">
-            <?php print $aside; ?>
+            <?php if($promos): ?>
+              <?php print $promos; ?>
+            <?php endif; ?>
+
+            <?php if($aside): ?>
+              <ul>
+                <?php print $aside; ?>
+              </ul>
+            <?php endif; ?>
           </div>
         <?php endif; ?>
       

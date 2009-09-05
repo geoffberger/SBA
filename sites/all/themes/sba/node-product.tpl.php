@@ -1,10 +1,12 @@
 <?php
 $image_path = '/' . file_directory_path() . '/imagecache/product/' . $node->field_image_cache[0]['filename'];
+$full_image_path = '/' . file_directory_path() . '/imagecache/product_full/' . $node->field_image_cache[0]['filename'];
 ?>
 
 <div class="product-detail">
   <h2 class="name"><?php print $node->title; ?></h2>
   <?php
+  print $node->content['fivestar_widget']['#value'];
   $list_price = $node->list_price;
   $sell_price = $node->sell_price;
   if($list_price > $sell_price): ?>
@@ -28,8 +30,10 @@ $image_path = '/' . file_directory_path() . '/imagecache/product/' . $node->fiel
 
 </div>
 
+<a rel="lightbox[0]" href="<?php print $full_image_path; ?>">
 <img class="product-thumb" src="<?php print $image_path; ?>" 
   alt="<?php print $node->field_esearch_image[0]['data']['alt']; ?>" title="<?php print $node->field_esearch_image[0]['data']['alt']; ?>"/>
+  </a>
 
 <div class="product-info">
   <ul class="clear">
@@ -37,7 +41,6 @@ $image_path = '/' . file_directory_path() . '/imagecache/product/' . $node->fiel
     <li><a href="#toggle-2">Customer Reviews:</a></li>
   </ul>
   <div class="toggle-content" id="toggle-1">
-    <?php print $node->content['fivestar_widget']['#value']; ?>
     <?php print $node->content['body']['#value']; ?>
   </div>
   <div class="toggle-content" id="toggle-2">

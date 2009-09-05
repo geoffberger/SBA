@@ -13,7 +13,7 @@ foreach($view->result as $result) {
 
   print '<li class="hproduct';
 
-  if($i % 3 ==0) {
+  if($i % 4 ==0) {
     print ' last';
   }
 
@@ -23,7 +23,7 @@ foreach($view->result as $result) {
   print '<span class="price">' . uc_currency_format($result->uc_products_sell_price) . '</span>';
   print '</li>';
 
-  if($i % 3 ==0) {
+  if($i % 4 ==0) {
     print '<li class="list-clear"></li>';
   }
 
