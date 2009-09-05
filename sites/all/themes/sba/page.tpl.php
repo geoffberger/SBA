@@ -40,7 +40,7 @@
         <?php if($user->uid): ?>
           <?php print theme('links', menu_navigation_links('menu-auth-utility-links', 0), array('class' => 'global-nav')) ?>
         <?php else: ?>
-          <?php print theme('links', menu_navigation_links('menu-utility-links', 0), array('class' => 'global-nav')) ?>
+          <?php print theme('links', menu_navigation_links('menu-utility-links', 0), array('class' => 'global-nav', 'id' => 'unauth-nav')) ?>
         <?php endif; ?>
 
         <div class="cart-wrap">
@@ -121,6 +121,6 @@
       <?php print theme('links', $secondary_links, array('class' => 'links secondary-links')) ?>
     <?php endif; ?>
 
-  <?php print $closure ?>
+  <?php print $closure; ?>
   </body>
 </html>
