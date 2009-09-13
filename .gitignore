@@ -1,3 +1,4 @@
 settings.php
 sites/*/files
 sites/*/files/*
+*.swp

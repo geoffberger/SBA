@@ -39,9 +39,9 @@ h1 a {display:block; width:469px; height:50px;}
 .cart-wrap .empty {background-image:url(../images/cart-empty.png);}
 .cart-wrap .items {background-image:url(../images/cart-items.png);}
 
-.main-nav {bottom:0; clear:both; font-size:2.45em; font-weight:bold; position:absolute; text-transform:uppercase;}
+.main-nav {bottom:0; clear:both; font-size:2.2em; font-weight:bold; position:absolute; text-transform:uppercase;}
 .main-nav li {float:left;}
-.main-nav li a {color:#fff; display:block; float:left; margin-right:24px; padding:10px 16px; text-decoration:none;}
+.main-nav li a {color:#fff; display:block; float:left; margin-right:14px; padding:10px 16px; text-decoration:none;}
 .main-nav li.active a {background:#fff; color:#ffbd1f; -moz-border-radius-topright:12px; -moz-border-radius-topleft:12px; -webkit-border-top-right-radius:12px; -webkit-border-top-left-radius:12px;}
 .main-nav li a:hover {color:#ffbd1f;}
 
