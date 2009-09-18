@@ -76,6 +76,7 @@ h1 a {display:block; width:469px; height:50px;}
 .footer li.last {border:0; padding:0;}
 .footer a, .footer a.active {color:#9D9797;}
 .footer a:hover {color:#ffbd1f;}
+.footer-closing {clear:both; color:#fff; padding-top:30px; text-align:center;}
 #store-footer {display:none;}
 
 /* Admin */
