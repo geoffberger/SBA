@@ -220,6 +220,9 @@ li img.product-thumb {border:none;}
 #checkout-form-bottom {background:#ffbd1f; border:none; font-size:1em; margin:0 -16px; padding:13px 4px 0 0; width:auto;}
 #checkout-form-bottom .sup-alt {margin-right:4px;}
 
+.checkout-images {overflow:hidden; display:block !important; display:inline-block;}
+.checkout-images a {float:left; display:inline; margin-right:26px;}
+
 .order-review-table {border:1px solid #ffbd1f; margin-top:20px; width:100%;}
 .order-review-table .pane-title-row td {padding:5px 10px;}
 .order-review-table .title-col {padding:5px 5px 5px 0;}
