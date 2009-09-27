@@ -67,6 +67,7 @@ h1 a {display:block; width:469px; height:50px;}
 .aside ul img {float:left;}
 .aside ul p img {margin:0 0 0 -70px;}
 .aside ul a {color:#0482af; text-decoration:none;}
+.aside h5 {margin:17px 0 0 70px;}
 
 .footer-wrap {background:#000; clear:both; color:#ffbd1f; min-height:12em;}
 .footer {padding:3em 0 0;}
